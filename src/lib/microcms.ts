@@ -8,6 +8,7 @@ import { createClient } from "microcms-js-sdk";
 
 const ENDPOINTS = {
   notes: "notes",
+  travel: "travel",
   works: "work",
 } as const;
 
@@ -44,6 +45,95 @@ export type Work = {
     contentDescription: string;
   }>;
 } & MicroCMSListContent;
+
+export type TravelLog = {
+  id: string;
+  title?: string;
+  place: string;
+  country?: string;
+  visitedAt: string;
+  latitude?: number;
+  longitude?: number;
+  photos?: MicroCMSImage[];
+  photo?: MicroCMSImage;
+  description?: string;
+} & MicroCMSListContent;
+
+const DEMO_TRAVEL_LOGS = [
+  {
+    id: "demo-christchurch",
+    title: "Botanic Gardens Walk",
+    place: "Christchurch",
+    country: "New Zealand",
+    visitedAt: "2026-06-18T00:00:00.000Z",
+    latitude: -43.532,
+    longitude: 172.6362,
+    photos: [
+      {
+        url: "/images/travel-demo-christchurch.svg",
+        width: 1200,
+        height: 900,
+      },
+    ],
+    description:
+      "A slow afternoon around Christchurch with green paths, old trees, and a quiet city mood.",
+    createdAt: "2026-06-18T00:00:00.000Z",
+    updatedAt: "2026-06-18T00:00:00.000Z",
+    publishedAt: "2026-06-18T00:00:00.000Z",
+    revisedAt: "2026-06-18T00:00:00.000Z",
+  },
+  {
+    id: "demo-queenstown",
+    title: "Lake Wakatipu",
+    place: "Queenstown",
+    country: "New Zealand",
+    visitedAt: "2026-05-06T00:00:00.000Z",
+    latitude: -45.0312,
+    longitude: 168.6626,
+    photos: [
+      {
+        url: "/images/travel-demo-queenstown.svg",
+        width: 1200,
+        height: 900,
+      },
+    ],
+    description:
+      "A mountain and lake stop for the travel log prototype, with enough detail to test map selection.",
+    createdAt: "2026-05-06T00:00:00.000Z",
+    updatedAt: "2026-05-06T00:00:00.000Z",
+    publishedAt: "2026-05-06T00:00:00.000Z",
+    revisedAt: "2026-05-06T00:00:00.000Z",
+  },
+  {
+    id: "demo-tokyo",
+    title: "Night Walk",
+    place: "Tokyo",
+    country: "Japan",
+    visitedAt: "2026-03-22T00:00:00.000Z",
+    latitude: 35.6764,
+    longitude: 139.65,
+    photos: [
+      {
+        url: "/images/travel-demo-tokyo.svg",
+        width: 1200,
+        height: 900,
+      },
+    ],
+    description:
+      "A city entry to check how the date list and map pins feel across distant locations.",
+    createdAt: "2026-03-22T00:00:00.000Z",
+    updatedAt: "2026-03-22T00:00:00.000Z",
+    publishedAt: "2026-03-22T00:00:00.000Z",
+    revisedAt: "2026-03-22T00:00:00.000Z",
+  },
+] satisfies TravelLog[];
+
+const createDemoTravelLogList = () => ({
+  contents: DEMO_TRAVEL_LOGS,
+  limit: 100,
+  offset: 0,
+  totalCount: DEMO_TRAVEL_LOGS.length,
+});
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
   throw new Error("MICROCMS_SERVICE_DOMAIN is required");
@@ -101,3 +191,21 @@ export const getLatestWorks = async () => {
 };
 
 export const getWork = (slug: string) => getDetail<Work>(ENDPOINTS.works, slug);
+
+export const getTravelLogList = async (queries?: MicroCMSQueries) => {
+  try {
+    const travelLogs = await getList<TravelLog>(ENDPOINTS.travel, {
+      limit: 100,
+      orders: "-visitedAt",
+      ...queries,
+    });
+
+    if (travelLogs.contents.length === 0) {
+      return createDemoTravelLogList();
+    }
+
+    return travelLogs;
+  } catch {
+    return createDemoTravelLogList();
+  }
+};

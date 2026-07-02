@@ -82,6 +82,10 @@ export default async function Home() {
             monthlyActivities={activityLog.monthlyActivities}
             periodLabel={activityLog.periodLabel}
           />
+
+          <div className="mt-12 text-center">
+            <LinkButton href="/activity/">VIEW TIMELINE</LinkButton>
+          </div>
         </div>
       </section>
 

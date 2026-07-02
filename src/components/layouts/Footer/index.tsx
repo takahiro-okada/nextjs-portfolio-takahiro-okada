@@ -17,6 +17,16 @@ export default function Footer() {
               </Link>
             </li>
             <li>
+              <Link href="/activity/" className="text-sm">
+                Activity
+              </Link>
+            </li>
+            <li>
+              <Link href="/travel/" className="text-sm">
+                Travel
+              </Link>
+            </li>
+            <li>
               <Link href="/notes/" className="text-sm">
                 Notes
               </Link>
