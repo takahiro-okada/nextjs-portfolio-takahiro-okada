@@ -199,11 +199,6 @@ export default function ActivityTimeline({ entries }: ActivityTimelineProps) {
             const title = (
               <>
                 <SourceIcon source={source.icon} />
-                <span
-                  className={`inline-flex shrink-0 items-center rounded px-2 py-1 text-xs font-bold ${source.className}`}
-                >
-                  {source.label}
-                </span>
                 <span className="text-base font-bold text-gray-900">
                   {entry.title}
                 </span>
@@ -245,12 +240,6 @@ export default function ActivityTimeline({ entries }: ActivityTimelineProps) {
                     />
                   </div>
                 ) : null}
-
-                {entry.description && (
-                  <p className="mt-3 break-words text-sm leading-6 text-gray-600">
-                    {entry.description}
-                  </p>
-                )}
               </li>
             );
           })}
