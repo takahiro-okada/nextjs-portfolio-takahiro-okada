@@ -101,7 +101,7 @@ export default function ActivityLog({
     <div className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm md:p-8">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div>
-          <h2 className="text-4xl font-bold tracking-normal text-gray-900 md:text-5xl">
+          <h2 className="text-2xl font-bold tracking-normal text-gray-900">
             Activity Log
           </h2>
           <p className="mt-1 text-sm text-gray-500">{periodLabel}</p>
