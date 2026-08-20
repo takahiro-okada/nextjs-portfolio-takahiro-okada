@@ -84,6 +84,15 @@ export default function Header() {
               </li>
               <li>
                 <Link
+                  href="/routine/"
+                  className="hover:opacity-60 transition-opacity"
+                  onClick={closeMenu}
+                >
+                  Routine
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/notes/"
                   className="hover:opacity-60 transition-opacity"
                   onClick={closeMenu}

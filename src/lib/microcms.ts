@@ -8,6 +8,7 @@ import { createClient } from "microcms-js-sdk";
 
 const ENDPOINTS = {
   notes: "notes",
+  routine: "routine",
   travel: "travel",
   works: "work",
 } as const;
@@ -57,6 +58,16 @@ export type TravelLog = {
   photos?: MicroCMSImage[];
   photo?: MicroCMSImage;
   description?: string;
+} & MicroCMSListContent;
+
+export type Routine = {
+  id: string;
+  date: string;
+  walking: number;
+  weight: number;
+  readingBook: boolean;
+  journaling: boolean;
+  stretch: boolean;
 } & MicroCMSListContent;
 
 const DEMO_TRAVEL_LOGS = [
@@ -209,3 +220,10 @@ export const getTravelLogList = async (queries?: MicroCMSQueries) => {
     return createDemoTravelLogList();
   }
 };
+
+export const getRoutineList = (queries?: MicroCMSQueries) =>
+  getList<Routine>(ENDPOINTS.routine, {
+    limit: 30,
+    orders: "-date",
+    ...queries,
+  });
